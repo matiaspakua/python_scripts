@@ -51,3 +51,9 @@ for bar_group in [bars1, bars2]:
 # Ajustar diseño
 plt.tight_layout()
 plt.show()
+
+# Guardar el gráfico en un archivo
+
+plt.savefig("tendencias_salud_digital.png", bbox_inches="tight")
+# Mostrar el gráfico
+plt.show()
