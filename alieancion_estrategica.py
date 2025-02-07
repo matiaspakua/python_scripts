@@ -1,32 +1,69 @@
+import re
 import matplotlib.pyplot as plt
+import numpy as np
 
-# Datos de los proyectos
-proyectos = ['PharmaTrace Insight', 'SupportSync AI', 'SmartStock Dynamics']
-impacto = [8, 9, 7]
-viabilidad = [6, 5, 7]  # Estimado basado en la información proporcionada
-roi = [22, 35, 18]
+# Configuración de datos
+proyectos = {
+    # Proyectos en curso (Gris)
+    'SmartStock Dynamics': {'impacto': 7, 'viabilidad': 7, 'roi': 25, 'color': '#CCCCCC'},
+    'Cybersecurity v2.0': {'impacto': 9, 'viabilidad': 8, 'roi': 35, 'color': '#CCCCCC'},
+    'Cloud Migrator': {'impacto': 6, 'viabilidad': 9, 'roi': 28, 'color': '#CCCCCC'},
+    'IoT Monitoring': {'impacto': 7, 'viabilidad': 6, 'roi': 18, 'color': '#CCCCCC'},
+    'Data Lake Expansion': {'impacto': 8, 'viabilidad': 7, 'roi': 30, 'color': '#CCCCCC'},
+    'Legacy System Upgrade': {'impacto': 6, 'viabilidad': 8, 'roi': 22, 'color': '#CCCCCC'},
 
-# Crear el gráfico de burbujas
-fig, ax = plt.subplots(figsize=(10, 8))
+    # Nuevos Proyectos (Colores vibrantes)
+    'AutoScale CX': {'impacto': 10, 'viabilidad': 9, 'roi': 40, 'color': '#2ECC71'},
+    'AI Compliance': {'impacto': 9, 'viabilidad': 8, 'roi': 35, 'color': '#F39C12'}
+}
 
-scatter = ax.scatter(viabilidad, impacto, s=[r*20 for r in roi], alpha=0.5, 
-                     c=['#FF9999', '#66B2FF', '#99FF99'])
+# Preparar datos para el gráfico
+impacto = [p['impacto'] for p in proyectos.values()]
+viabilidad = [p['viabilidad'] for p in proyectos.values()]
+roi = [p['roi']*40 for p in proyectos.values()]  # Escalar ROI para tamaño burbuja
+colores = [p['color'] for p in proyectos.values()]
+etiquetas = list(proyectos.keys())
 
-# Añadir etiquetas para cada burbuja
-for i, proyecto in enumerate(proyectos):
-    ax.annotate(proyecto, (viabilidad[i], impacto[i]), 
-                xytext=(5, 5), textcoords='offset points')
+# Crear gráfico
+plt.figure(figsize=(14, 10))
+scatter = plt.scatter(viabilidad, impacto, s=roi, c=colores, alpha=0.7, edgecolors='black')
 
-# Personalizar el gráfico
-ax.set_xlabel('Viabilidad', fontsize=12)
-ax.set_ylabel('Impacto Estratégico', fontsize=12)
-ax.set_title('Matriz de Priorización de Proyectos NextIT Services', fontsize=14)
-ax.grid(True, linestyle='--', alpha=0.7)
+# Añadir etiquetas
+for i, txt in enumerate(etiquetas):
+    plt.annotate(txt, (viabilidad[i]+0.1, impacto[i]), 
+                 fontsize=9, ha='left', va='center')
 
-# Añadir una leyenda para el tamaño de las burbujas
-handles, labels = scatter.legend_elements(prop="sizes", alpha=0.5, 
-                                          func=lambda s: s/20, num=3)
-legend = ax.legend(handles, labels, loc="upper left", title="ROI (%)")
+# Línea de ROI mínimo estratégico
+plt.axhline(y=7.5, color='#3498DB', linestyle='--', linewidth=1)
+plt.text(x=5.5, y=7.7, s='ROI Mínimo Estratégico (25%)', color='#3498DB', fontsize=10)
 
+# Personalización
+plt.title('Matriz de Priorización Estratégica NextIT - Feb 2025', fontsize=16, pad=20)
+plt.xlabel('Viabilidad Operativa →', fontsize=12)
+plt.ylabel('← Impacto Estratégico', fontsize=12)
+plt.xlim(4, 10)
+plt.ylim(5, 11)
+
+# Leyenda de tamaño (ROI)
+handles, labels = scatter.legend_elements(prop="sizes", alpha=0.6, num=4)
+
+# Extraer números de las etiquetas y convertirlos a porcentajes
+legend_roi = plt.legend(handles, [f'{int(re.search(r"\d+", l).group()) // 40}%' for l in labels],
+                        title="ROI (%)", loc='lower left', bbox_to_anchor=(0.15, 0.05))
+
+# Leyenda de colores
+legend_elements = [
+    plt.Line2D([0], [0], marker='o', color='w', label='Proyectos Actuales',
+               markerfacecolor='#CCCCCC', markersize=10),
+    plt.Line2D([0], [0], marker='o', color='w', label='AutoScale CX (Prioridad 1)',
+               markerfacecolor='#2ECC71', markersize=10),
+    plt.Line2D([0], [0], marker='o', color='w', label='AI Compliance (Prioridad 2)',
+               markerfacecolor='#F39C12', markersize=10)
+]
+
+plt.legend(handles=legend_elements, loc='upper right', 
+           title="Leyenda de Proyectos", frameon=True)
+
+plt.grid(True, linestyle='--', alpha=0.5)
 plt.tight_layout()
 plt.show()

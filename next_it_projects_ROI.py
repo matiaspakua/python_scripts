@@ -33,7 +33,7 @@ ax2.tick_params(axis='y', labelcolor='#ff7f0e')
 ax2.set_ylim(0, 50)
 
 # Añadir etiquetas
-ax1.set_title('Portfolio de Proyectos NextIT Services - Ajuste Estratégico 2025\n(Facturación Anual: €12M - Mercado Español)')
+ax1.set_title('Portfolio de Proyectos NextIT Services \n(Facturación Anual: €12M)')
 
 # Leyenda combinada
 lines = [plt.Line2D([0], [0], color='#1f77b4', lw=4),
