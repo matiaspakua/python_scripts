@@ -8,7 +8,6 @@ proyectos = {
     'SmartStock Dynamics': {'impacto': 7, 'viabilidad': 7, 'roi': 25, 'color': '#CCCCCC'},
     'Cybersecurity v2.0': {'impacto': 9, 'viabilidad': 8, 'roi': 35, 'color': '#CCCCCC'},
     'Cloud Migrator': {'impacto': 6, 'viabilidad': 9, 'roi': 28, 'color': '#CCCCCC'},
-    'IoT Monitoring': {'impacto': 7, 'viabilidad': 6, 'roi': 18, 'color': '#CCCCCC'},
     'Data Lake Expansion': {'impacto': 8, 'viabilidad': 7, 'roi': 30, 'color': '#CCCCCC'},
     'Legacy System Upgrade': {'impacto': 6, 'viabilidad': 8, 'roi': 22, 'color': '#CCCCCC'},
 
