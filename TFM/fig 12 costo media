@@ -1,0 +1,24 @@
+import matplotlib.pyplot as plt
+
+# Fases generalizadas y porcentajes promedio
+fases = [
+    "Definición y Conceptualización",
+    "Diseño y Desarrollo",
+    "Integración y Pruebas",
+    "Lanzamiento",
+    "Operación y Mantenimiento"
+]
+porcentajes = [8, 35, 27, 17, 13]
+
+# Lista de colores para cada barra
+colores = ['#FF9999', '#66B2FF', '#99FF99', '#FFCC99', '#C299FF']
+
+plt.figure(figsize=(10, 6))
+plt.bar(fases, porcentajes, color=colores)
+plt.ylabel('Porcentaje del Costo Total (%)', fontsize=12)
+plt.xlabel('Fases del Proyecto', fontsize=12)
+plt.title('Distribución Media del Costo en Proyectos Satelitales Complejos', fontsize=12)
+plt.ylim(0, 50)
+plt.grid(axis='y', linestyle='--', alpha=0.6)
+plt.tight_layout()
+plt.show()
